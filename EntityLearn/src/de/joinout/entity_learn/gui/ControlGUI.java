@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,11 +16,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import de.joinout.criztovyl.tools.connector.Connector;
-import de.joinout.criztovyl.tools.gui.GUI;
-import de.joinout.criztovyl.tools.gui.GUITools;
+import de.joinout.criztovyl.tools.gui.BetterGUI;
 import de.joinout.entity_learn.EntityLearnMain;
 
-public class ControlGUI extends GUI{
+public class ControlGUI extends BetterGUI{
 	
 	//private static final int UNDEFINED = -1;
 	private static final int A = 1;
@@ -30,14 +31,14 @@ public class ControlGUI extends GUI{
 	private Group group, load_group;
 	private List<String> randomLoad;
 	private int lastRandomID;
-	private GUITools guiTools;
+	private Logger logger;
 
 	public ControlGUI(){
 		super();
 		
 		randomLoad = new ArrayList<>();
 		lastRandomID = 0;
-		guiTools = new GUITools();
+		logger = LogManager.getLogger();
 		
 		//Set layout
 		getShell().setLayout(new FillLayout());
@@ -91,47 +92,46 @@ public class ControlGUI extends GUI{
 		load_by_a.setSelection(true);
 		
 		//Add them and positions them
-		guiTools.setClientArea(group);
 		
-		guiTools.inside(l_a);
+		setClientArea(group);
+		
+		inside(l_a);
 		l_a.pack();
 		
-		guiTools.right(a);
+		right(a);
 		a.pack();
-		guiTools.setWidth(200);
+		resizeWidth(200);
 		
-		guiTools.right(l_b);
+		right(l_b);
 		l_b.pack();
 		
-		guiTools.right(b);
+		right(b);
 		b.pack();
-		guiTools.setWidth(200);
+		resizeWidth(200);
 		
-		guiTools.belowRow(save);
+		belowRow(save);
 		save.pack();
 		
-		guiTools.right(load);
+		right(load);
 		load.pack();
 		
-		guiTools.right(random);
+		right(random);
 		random.pack();
 		
-		guiTools.belowRow(load_group);
-		guiTools.setClientArea(load_group);
+		belowRow(load_group);
 		
-		guiTools.inside(load_by_a);
+		setClientArea(load_group);
+		
+		inside(load_by_a);
 		load_by_a.pack();
 		
-		guiTools.below(load_by_b);
+		below(load_by_b);
 		load_by_b.pack();
 		
-		guiTools.below(load_group);
 		load_group.pack();
 		
 		//Pack shell
 		getShell().pack();
-		
-		
 		
 		
 		//Add actions
